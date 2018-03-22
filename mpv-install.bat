@@ -19,26 +19,30 @@ set mpv_args=
 set mpv_path=%~dp0mpv.exe
 if not exist "%mpv_path%" call :die "mpv.exe not found"
 
+:: Get umpvw.exe location
+set umpvw_path=%~dp0umpvw.exe
+if not exist "%umpvw_path%" call :die "umpvw.exe not found"
+
 :: Get mpv-document.ico location
 set icon_path=%~dp0mpv-document.ico
 if not exist "%icon_path%" call :die "mpv-document.ico not found"
 
 :: Register mpv.exe under the "App Paths" key, so it can be found by
 :: ShellExecute, the run command, the start menu, etc.
-set app_paths_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\mpv.exe
-call :reg add "%app_paths_key%" /d "%mpv_path%" /f
+set app_paths_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\umpvw.exe
+call :reg add "%app_paths_key%" /d "%umpvw_path%" /f
 call :reg add "%app_paths_key%" /v "UseUrl" /t REG_DWORD /d 1 /f
 
 :: Register mpv.exe under the "Applications" key to add some default verbs for
 :: when mpv is used from the "Open with" menu
 set classes_root_key=HKLM\SOFTWARE\Classes
-set app_key=%classes_root_key%\Applications\mpv.exe
+set app_key=%classes_root_key%\Applications\umpvw.exe
 call :reg add "%app_key%" /v "FriendlyAppName" /d "mpv" /f
 call :add_verbs "%app_key%"
 
 :: Add mpv to the "Open with" list for all video and audio file types
-call :reg add "%classes_root_key%\SystemFileAssociations\video\OpenWithList\mpv.exe" /d "" /f
-call :reg add "%classes_root_key%\SystemFileAssociations\audio\OpenWithList\mpv.exe" /d "" /f
+call :reg add "%classes_root_key%\SystemFileAssociations\video\OpenWithList\umpvw.exe" /d "" /f
+call :reg add "%classes_root_key%\SystemFileAssociations\audio\OpenWithList\umpvw.exe" /d "" /f
 
 :: Add DVD AutoPlay handler
 set autoplay_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers
@@ -238,11 +242,11 @@ exit 0
 	call :reg add "%key%\shell\open" /v "LegacyDisable" /f
 
 	:: Set open command
-	call :reg add "%key%\shell\open\command" /d "\"%mpv_path%\" %mpv_args% -- \"%%%%L" /f
+	call :reg add "%key%\shell\open\command" /d "\"%umpvw_path%\" \"%%%%L" /f
 
 	:: Add "play" verb
 	call :reg add "%key%\shell\play" /d "&Play" /f
-	call :reg add "%key%\shell\play\command" /d "\"%mpv_path%\" %mpv_args% -- \"%%%%L" /f
+	call :reg add "%key%\shell\play\command" /d "\"%umpvw_path%\" \"%%%%L" /f
 
 	goto :EOF
 

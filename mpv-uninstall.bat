@@ -10,13 +10,13 @@ if "%1"=="/u" set unattended=yes
 call :ensure_admin
 
 :: Delete "App Paths" entry
-reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\mpv.exe" /f >nul
+reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\umpvw.exe" /f >nul
 
 :: Delete HKCR subkeys
 set classes_root_key=HKLM\SOFTWARE\Classes
-reg delete "%classes_root_key%\Applications\mpv.exe" /f >nul
-reg delete "%classes_root_key%\SystemFileAssociations\video\OpenWithList\mpv.exe" /f >nul
-reg delete "%classes_root_key%\SystemFileAssociations\audio\OpenWithList\mpv.exe" /f >nul
+reg delete "%classes_root_key%\Applications\umpvw.exe" /f >nul
+reg delete "%classes_root_key%\SystemFileAssociations\video\OpenWithList\umpvw.exe" /f >nul
+reg delete "%classes_root_key%\SystemFileAssociations\audio\OpenWithList\umpvw.exe" /f >nul
 
 :: Delete AutoPlay handlers
 set autoplay_key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers
