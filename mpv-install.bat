@@ -37,7 +37,7 @@ call :reg add "%app_paths_key%" /v "UseUrl" /t REG_DWORD /d 1 /f
 :: when mpv is used from the "Open with" menu
 set classes_root_key=HKLM\SOFTWARE\Classes
 set app_key=%classes_root_key%\Applications\umpvw.exe
-call :reg add "%app_key%" /v "FriendlyAppName" /d "mpv" /f
+call :reg add "%app_key%" /v "FriendlyAppName" /d "umpvw" /f
 call :add_verbs "%app_key%"
 
 :: Add mpv to the "Open with" list for all video and audio file types
